@@ -3,10 +3,10 @@ const loadcetagory = () => {
         .then(res => res.json())
         .then(data => displaycat(data.data));
 }
-const displaycat = dicatagory=>{
+const displaycat = dicatagory => {
     const dcatagory = document.getElementById('catagory')
     dicatagory.news_category.forEach(catagory => {
-        console.log(catagory.category_name); 
+        console.log(catagory.category_name);
         const div = document.createElement('div');
         dcatagory.appendChild(div);
         div.innerHTML = `
