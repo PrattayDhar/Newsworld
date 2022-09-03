@@ -32,7 +32,7 @@ const CardDisplay = ctagories => {
         return b.total_view - a.total_view;
     });
     newscount(ctagories.length)
-    if (ctagories.length===0) {
+    if (ctagories.length === 0) {
         const nodata = document.getElementById('nodata')
         nodata.classList.remove('d-none')
     }
