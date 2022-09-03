@@ -9,21 +9,26 @@ const displaycat = dicatagory => {
         const div = document.createElement('div');
         dcatagory.appendChild(div);
         div.innerHTML = `
-        <button type="button" class="btn " onclick="call('${catagory.category_id}')">${catagory.category_name}</button>`
+        <button type="button" class="btn " onclick="call('${catagory.category_id}' )">${catagory.category_name}</button>`
+     
     });
-
+  
 }
 loadcetagory()
-
 
 const call = (id) => {
     const url = `https://openapi.programming-hero.com/api/news/category/${id}`
     fetch(url)
         .then(res => res.json())
         .then(data => CardDisplay(data.data))
+    toggolespinner(true)
+
 }
+
+
 const CardDisplay = ctagories => {
     const newsportal = document.getElementById('news');
+
     newsportal.innerHTML=""
     ctagories.forEach(ctagory => {
         const portalbody = document.createElement('div');
@@ -56,4 +61,16 @@ const CardDisplay = ctagories => {
               
         `;
     });
+    toggolespinner(false);
+}
+
+const toggolespinner=isloading=>{
+    const loadsection=document.getElementById('spinner')
+    if(isloading){
+        loadsection.classList.remove('d-none');
+    }
+    else{
+        loadsection.classList.add('d-none')
+    }
+    
 }
