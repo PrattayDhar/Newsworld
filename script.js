@@ -28,7 +28,18 @@ const call = (id) => {
 
 
 const CardDisplay = ctagories => {
+    ctagories.sort((a, b) => {
+        return b.total_view - a.total_view;
+    });
     newscount(ctagories.length)
+    if (ctagories.length===0) {
+        const nodata = document.getElementById('nodata')
+        nodata.classList.remove('d-none')
+    }
+    else {
+        const nodata = document.getElementById('nodata')
+        nodata.classList.add('d-none')
+    }
     const newsportal = document.getElementById('news');
 
     newsportal.innerHTML = ""
@@ -47,14 +58,14 @@ const CardDisplay = ctagories => {
                         
                         <div class="card-body">
                             <h5 class="card-title">${ctagory.title}</h5>
-                            <p class="card-text">${ctagory.details.slice(0,150)}${'...'}</p>
+                            <p class="card-text">${ctagory.details.slice(0, 150)}${'...'}</p>
                         </div>
                     </div>
                     
                         <div class="card-body">
                             <div class="d-flex justify-content-around">
                                 <div><img class="author" src="${ctagory.author.img}" alt=""><span>${ctagory.author.name ? ctagory.author.name : "No data Found"}</span></div>
-                                <i class="fa-regular fa-eye">${ctagory.total_view ? ctagory.total_view :"No View"}</i>
+                                <i class="fa-regular fa-eye">${ctagory.total_view ? ctagory.total_view : "No View"}</i>
                                 
                             <button onclick="modalfunction('${ctagory._id}')" type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
       <i class="fa-solid fa-arrow-right"></i>
@@ -70,7 +81,7 @@ const CardDisplay = ctagories => {
         `;
     });
     toggolespinner(false);
-    
+
 }
 
 const toggolespinner = isloading => {
@@ -93,18 +104,18 @@ const newscount = (count) => {
 }
 const modalfunction = (_id) => {
     const url = `https://openapi.programming-hero.com/api/news/${_id}`
-        fetch(url)
-            .then(res => res.json())
-            .then(data => displaymodal(data.data))
-    
+    fetch(url)
+        .then(res => res.json())
+        .then(data => displaymodal(data.data))
+
 }
-const displaymodal=datas=>{
-    datas.forEach(data=>{
+const displaymodal = datas => {
+    datas.forEach(data => {
         const newmodalbody = document.getElementById('modalbody')
-        newmodalbody.innerHTML=""
-        const span =document.createElement('div')
+        newmodalbody.innerHTML = ""
+        const span = document.createElement('div')
         newmodalbody.appendChild(span);
-        span.innerHTML=`<span>${data.details}</span>`
+        span.innerHTML = `<span>${data.details}</span>`
 
     });
 }
