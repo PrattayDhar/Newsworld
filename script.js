@@ -45,7 +45,7 @@ const CardDisplay = ctagories => {
                         
                         <div class="card-body">
                             <h5 class="card-title">${ctagory.title}</h5>
-                            <p class="card-text">${ctagory.details.slice(0, 100)}</p>
+                            <p class="card-text">${ctagory.details.slice(0,150)}${'...'}</p>
                         </div>
                     </div>
                     
@@ -54,7 +54,7 @@ const CardDisplay = ctagories => {
                                 <div><img class="author" src="${ctagory.author.img}" alt=""><span>${ctagory.author.name}</span></div>
                                 <i class="fa-regular fa-eye">${ctagory.total_view}</i>
                                 
-                            <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                            <button onclick="modalfunction('${ctagory._id}')" type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
       <i class="fa-solid fa-arrow-right"></i>
 </button>
 
@@ -89,4 +89,28 @@ const newscount = (count) => {
     Data.innerHTML = `
     <h3 class="text-center bg-light p-4">${count} Total News Found</h3>`;
 }
+const modalfunction = (_id) => {
+    const url = `https://openapi.programming-hero.com/api/news/${_id}`
+        fetch(url)
+            .then(res => res.json())
+            .then(data => displaymodal(data.data))
+    
+}
+const displaymodal=datas=>{
+    datas.forEach(data=>{
+        const newmodalbody = document.getElementById('modalbody')
+        newmodalbody.innerHTML=""
+        const span =document.createElement('div')
+        newmodalbody.appendChild(span);
+        span.innerHTML=`<span>${data.details}</span>`
 
+    });
+}
+function add3Dots(string, limit) {
+    var dots = "...";
+    if (string.length > limit) {
+        string = string.substring(0, limit) + dots;
+    }
+
+    return string;
+}
