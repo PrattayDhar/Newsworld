@@ -21,7 +21,7 @@ const call = (id) => {
     fetch(url)
         .then(res => res.json())
         .then(data => CardDisplay(data.data))
-    toggolespinner(true)
+        toggolespinner(true)
 
 }
 
@@ -52,7 +52,10 @@ const CardDisplay = ctagories => {
                             <div class="d-flex justify-content-around">
                                 <div><img class="author" src="${ctagory.author.img}" alt=""><span>${ctagory.author.name}</span></div>
                                 <i class="fa-regular fa-eye">${ctagory.total_view}</i>
-                                <i class="fa-solid fa-arrow-right"></i>
+                                
+                            <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
+      <i class="fa-solid fa-arrow-right"></i>
+</button>
                             </div>
                         </div>
                     </div>
