@@ -21,6 +21,7 @@ const call = (id) => {
     fetch(url)
         .then(res => res.json())
         .then(data => CardDisplay(data.data))
+        .catch(error)
     toggolespinner(true)
 
 }
@@ -34,6 +35,7 @@ const CardDisplay = ctagories => {
     ctagories.forEach(ctagory => {
         const portalbody = document.createElement('div');
         newsportal.appendChild(portalbody);
+
         portalbody.innerHTML = `
         <div>
         <div class="col-lg-12 col-md-12 col-sm-12 mb-3 ">
@@ -51,8 +53,8 @@ const CardDisplay = ctagories => {
                     
                         <div class="card-body">
                             <div class="d-flex justify-content-around">
-                                <div><img class="author" src="${ctagory.author.img}" alt=""><span>${ctagory.author.name}</span></div>
-                                <i class="fa-regular fa-eye">${ctagory.total_view}</i>
+                                <div><img class="author" src="${ctagory.author.img}" alt=""><span>${ctagory.author.name ? ctagory.author.name : "No data Found"}</span></div>
+                                <i class="fa-regular fa-eye">${ctagory.total_view ? ctagory.total_view :"No View"}</i>
                                 
                             <button onclick="modalfunction('${ctagory._id}')" type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
       <i class="fa-solid fa-arrow-right"></i>
@@ -87,7 +89,7 @@ const newscount = (count) => {
     const Data = document.createElement('div');
     DataCount.appendChild(Data);
     Data.innerHTML = `
-    <h3 class="text-center bg-light p-4">${count} Total News Found</h3>`;
+    <h3 class="text-center bg-light p-4"> Total ${count} News Found</h3>`;
 }
 const modalfunction = (_id) => {
     const url = `https://openapi.programming-hero.com/api/news/${_id}`
@@ -106,11 +108,4 @@ const displaymodal=datas=>{
 
     });
 }
-function add3Dots(string, limit) {
-    var dots = "...";
-    if (string.length > limit) {
-        string = string.substring(0, limit) + dots;
-    }
 
-    return string;
-}
